@@ -1,21 +1,42 @@
 package population_test
 
-import "testing"
+import (
+	"testing"
 
-func TestPopulation(t *testing.T) {
+	"github.com/ajean-zd/gameoflife/internal/population"
+)
+
+func TestPopulation_New(t *testing.T) {
 	testCases := []struct {
 		desc string
+		dims int
+		want [][]bool
 	}{
 		{
-			desc: "",
+			desc: "it returns a 2d array of bool",
+			dims: 2,
+			want: [][]bool{
+				{false, false},
+				{false, false},
+			},
 		},
 	}
 	for _, tC := range testCases {
 		t.Run(tC.desc, func(t *testing.T) {
+			got := population.New(tC.dims)
 
+			if got.Equals(tC.want) {
+				t.Errorf("got: %v, want: %v", got, tC.want)
+			}
 		})
 	}
 }
+
+// Two dimentional array of bools
+//define methods on it
+// eg  population.New
+//test the constructor
+//give it a number(an integer) and this will give us back an array with n rows and n columns
 
 // Any live cell with fewer than two live neighbours dies, as if by underpopulation.
 // Any live cell with two or three live neighbours lives on to the next generation.
