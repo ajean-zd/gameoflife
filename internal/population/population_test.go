@@ -11,25 +11,37 @@ func TestPopulation_New(t *testing.T) {
 		desc string
 		dims int
 		want [][]bool
+		err  bool
 	}{
 		{
-			desc: "it returns a 2d array of bool",
+			desc: "it returns a 2d array of bool when dimensions are given",
 			dims: 2,
 			want: [][]bool{
 				{false, false},
 				{false, false},
 			},
+			err: false,
+		},
+		{
+			desc: "it returns an error when zero dimensions are given",
+			dims: 0,
+			want: nil,
+			err:  true,
 		},
 	}
 	for _, tC := range testCases {
 		t.Run(tC.desc, func(t *testing.T) {
-			got := population.New(tC.dims)
-			t.Log(got)
-			t.Errorf("row:%v\n", got)
+			got, err := population.New(tC.dims)
 
-			// if got.Equals(tC.want) {
-			// 	t.Errorf("got: %v, want: %v", got, tC.want)
-			// }
+			if tC.err {
+				if err == nil {
+					t.Errorf("expected error, got nil")
+				}
+			}
+
+			if !got.Equals(tC.want) {
+				t.Errorf("got: %v, want: %v", got, tC.want)
+			}
 		})
 	}
 }
