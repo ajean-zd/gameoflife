@@ -24,10 +24,12 @@ func TestPopulation_New(t *testing.T) {
 	for _, tC := range testCases {
 		t.Run(tC.desc, func(t *testing.T) {
 			got := population.New(tC.dims)
+			t.Log(got)
+			t.Errorf("row:%v\n", got)
 
-			if got.Equals(tC.want) {
-				t.Errorf("got: %v, want: %v", got, tC.want)
-			}
+			// if got.Equals(tC.want) {
+			// 	t.Errorf("got: %v, want: %v", got, tC.want)
+			// }
 		})
 	}
 }
