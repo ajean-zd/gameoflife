@@ -1,6 +1,7 @@
 package population_test
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/ajean-zd/gameoflife/internal/population"
@@ -16,18 +17,18 @@ func TestPopulation_New(t *testing.T) {
 		{
 			desc: "it returns a 2d array of bool when dimensions are given",
 			dims: 2,
-			want: [][]bool{
+			want: population.Population{
 				{false, false},
 				{false, false},
 			},
 			err: false,
 		},
-		{
-			desc: "it returns an error when zero dimensions are given",
-			dims: 0,
-			want: nil,
-			err:  true,
-		},
+		// {
+		// 	desc: "it returns an error when zero dimensions are given",
+		// 	dims: 0,
+		// 	want: population.Population{},
+		// 	err:  true,
+		// },
 	}
 	for _, tC := range testCases {
 		t.Run(tC.desc, func(t *testing.T) {
@@ -38,6 +39,38 @@ func TestPopulation_New(t *testing.T) {
 					t.Errorf("expected error, got nil")
 				}
 			}
+
+			if !got.Equals(tC.want) {
+				fmt.Println(got)
+				t.Errorf("got: %v, want: %v", got, tC.want)
+			}
+		})
+	}
+}
+
+func TestPopulation_Tick(t *testing.T) {
+	testCases := []struct {
+		desc string
+		init population.Population
+		rule func(population.Population, int, int) bool
+		want population.Population
+	}{
+		{
+			desc: "it advances the population by one tick according to a rule",
+			init: population.Population{
+				{true, false},
+				{false, true},
+			},
+			rule: func(p population.Population, row, col int) bool { return true },
+			want: population.Population{
+				{true, true},
+				{true, true},
+			},
+		},
+	}
+	for _, tC := range testCases {
+		t.Run(tC.desc, func(t *testing.T) {
+			got := tC.init.Tick(tC.rule)
 
 			if !got.Equals(tC.want) {
 				t.Errorf("got: %v, want: %v", got, tC.want)
