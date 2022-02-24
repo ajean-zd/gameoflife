@@ -1,6 +1,7 @@
 package population_test
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -22,6 +23,11 @@ func Test(t *testing.T) {
 			expectedErrMsg: "couldn't open file",
 		},
 		{
+			desc: "It errors if file empty",
+			path: "test_files/empty.cells",
+			want: nil,
+		},
+		{
 			desc: "It reads in a population from a file",
 			path: "test_files/test_simple.cells",
 			want: population.Population{
@@ -30,19 +36,17 @@ func Test(t *testing.T) {
 			},
 		},
 	}
-	for _, tC := range testCases {
-		t.Run(tC.desc, func(t *testing.T) {
-			got, actualErr := population.FromFile(tC.path)
+	for _, tc := range testCases {
+		t.Run(tc.desc, func(t *testing.T) {
+			got, actualErr := population.FromFile(tc.path)
+			fmt.Println(" got", got)
 
-			if tC.expectedErrMsg != "" {
+			if tc.expectedErrMsg != "" {
 				require.Error(t, actualErr)
-				assert.Contains(t, actualErr.Error(), tC.expectedErrMsg, "error as expected")
+				assert.Contains(t, actualErr.Error(), tc.expectedErrMsg, "error as expected")
 			} else {
 				require.NoError(t, actualErr)
-				// if !got.Equals(tC.want) {
-				// 	t.Errorf("got: %v, want: %v", got, tC.want)
-				// }
-				assert.Equal(t, tC.want, got, "this worked")
+				assert.Equal(t, tc.want, got, "this worked")
 			}
 		})
 	}
