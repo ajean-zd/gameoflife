@@ -10,13 +10,13 @@ import (
 func GameOfLife(pop population.Population, row int, col int) bool {
 	cell := pop[row][col]
 	// Get the values of the surrounding cells
-	ns := pop.Neighbours(row, col)
+	neighbours := pop.Neighbours(row, col)
 
 	// How many of the surrounding cells are live?
-	liveNs := 0
-	for _, n := range ns {
-		if n {
-			liveNs += 1
+	liveNeighbours := 0
+	for _, neighbour := range neighbours {
+		if neighbour {
+			liveNeighbours += 1
 		}
 	}
 
@@ -25,7 +25,7 @@ func GameOfLife(pop population.Population, row int, col int) bool {
 	if cell {
 		// Live cells live on if they have
 		// two or three live neighbours
-		if liveNs == 2 || liveNs == 3 {
+		if liveNeighbours == 2 || liveNeighbours == 3 {
 			return true
 		} else {
 			return false
@@ -33,7 +33,7 @@ func GameOfLife(pop population.Population, row int, col int) bool {
 	} else {
 		// Dead cells come to life if they
 		// have three live neighbours
-		if liveNs == 3 {
+		if liveNeighbours == 3 {
 			return true
 		} else {
 			return false

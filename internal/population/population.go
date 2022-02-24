@@ -50,6 +50,7 @@ func (p Population) Equals(q Population) bool {
 	return true
 }
 
+// String is a helper function that gives a readable display when you printf
 func (p Population) String() string {
 	if p == nil {
 		return ""
@@ -74,6 +75,7 @@ func (p Population) String() string {
 	return sb.String()
 }
 
+//Tick moves the game by one transition
 func (p Population) Tick(applyRule func(Population, int, int) bool) Population {
 	var next [][]bool
 
@@ -90,8 +92,9 @@ func (p Population) Tick(applyRule func(Population, int, int) bool) Population {
 	return next
 }
 
+//Neighbours takes a location and gives the state of the cells around it
 func (p Population) Neighbours(row int, col int) []bool {
-	nLocations := []Location{
+	neighbourLocations := []Location{
 		{row - 1, col - 1},
 		{row - 1, col},
 		{row - 1, col + 1},
@@ -101,20 +104,20 @@ func (p Population) Neighbours(row int, col int) []bool {
 		{row + 1, col},
 		{row + 1, col + 1},
 	}
-	var ns []bool
+	var neighbours []bool
 
-	for _, l := range nLocations {
-		if l.x < 0 || l.x >= len(p) {
+	for _, location := range neighbourLocations {
+		if location.x < 0 || location.x >= len(p) {
 			continue
 		}
 
-		row := p[l.x]
-		if l.y < 0 || l.y >= len(row) {
+		row := p[location.x]
+		if location.y < 0 || location.y >= len(row) {
 			continue
 		}
 
-		ns = append(ns, row[l.y])
+		neighbours = append(neighbours, row[location.y])
 	}
 
-	return ns
+	return neighbours
 }
