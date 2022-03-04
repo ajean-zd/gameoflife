@@ -1,7 +1,6 @@
 package population_test
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -17,16 +16,16 @@ func Test(t *testing.T) {
 		expectedErrMsg string
 		want           population.Population
 	}{
-		{
-			desc:           "It errors if there is no file",
-			path:           "test_files/is_no_file.cells",
-			expectedErrMsg: "couldn't open file",
-		},
-		{
-			desc: "It errors if file empty",
-			path: "test_files/empty.cells",
-			want: nil,
-		},
+		// {
+		// 	desc:           "It errors if there is no file",
+		// 	path:           "test_files/is_no_file.cells",
+		// 	expectedErrMsg: "couldn't open file",
+		// },
+		// {
+		// 	desc: "It errors if file empty",
+		// 	path: "test_files/empty.cells",
+		// 	want: nil,
+		// },
 		{
 			desc: "It reads in a population from a file",
 			path: "test_files/test_simple.cells",
@@ -39,7 +38,6 @@ func Test(t *testing.T) {
 	for _, tc := range testCases {
 		t.Run(tc.desc, func(t *testing.T) {
 			got, actualErr := population.FromFile(tc.path)
-			fmt.Println(" got", got)
 
 			if tc.expectedErrMsg != "" {
 				require.Error(t, actualErr)

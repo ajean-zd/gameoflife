@@ -1,6 +1,7 @@
 package population
 
 import (
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"strings"
@@ -15,33 +16,31 @@ func FromFile(path string) (Population, error) {
 	if err != nil {
 		return nil, fmt.Errorf("couldn't open file: %v", err)
 	}
-	//
 	//convert to a byte array
 	contents := string(bytes)
-
-	//[".0","0."]
+	if contents == "" {
+		return nil, errors.New("The file appears to be empty")
+	}
+	contents = strings.TrimSpace(contents)
 	parsedContents := strings.Split(contents, "\n")
-	//[".0","0."]
 
-	//fmt.Println(parsedContents)
-	//expected: population.Population{[]bool{false, true}, []bool{true, false}}
-	// (population.Population) (len=2) {
-	// 	- ([]bool) (len=2) {
-	// 	-  (bool) false,
-	// 	-  (bool) true
-	// 	- },
-	// 	- ([]bool) (len=2) {
-	// 	-  (bool) true,
-	// 	-  (bool) false
-	// 	- }
-	// 	-}
+	for _, content := range parsedContents {
+		//split each string into characters
+		a := strings.Split(content, "")
+		//fmt.Println(a)
+		//bool
+		row := []bool{}
+		for _, character := range a {
+			if character == "." {
+				row = append(row, false)
+			} else {
+				row = append(row, true)
+			}
 
-	// r := 0
-	// c := 0
-	// for _, parsed := range parsedContents {
-	// 	for
+		}
+		population = append(population, row)
+		fmt.Println(population)
+	}
 
-	// }
-	// return it
 	return population, nil
 }
