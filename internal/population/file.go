@@ -8,39 +8,32 @@ import (
 )
 
 func FromFile(path string) (Population, error) {
-	// create the empty
 	var population Population
 
-	// do the work
 	bytes, err := ioutil.ReadFile(path)
 	if err != nil {
 		return nil, fmt.Errorf("couldn't open file: %v", err)
 	}
-	//convert to a byte array
 	contents := string(bytes)
 	if contents == "" {
 		return nil, errors.New("The file appears to be empty")
 	}
 	contents = strings.TrimSpace(contents)
-	parsedContents := strings.Split(contents, "\n")
+	lines := strings.Split(contents, "\n")
 
-	for _, content := range parsedContents {
-		//split each string into characters
-		a := strings.Split(content, "")
-		//fmt.Println(a)
-		//bool
+	for _, line := range lines {
+		characters := strings.Split(line, "")
 		row := []bool{}
-		for _, character := range a {
+
+		for _, character := range characters {
 			if character == "." {
 				row = append(row, false)
 			} else {
 				row = append(row, true)
 			}
-
 		}
-		population = append(population, row)
-		fmt.Println(population)
-	}
 
+		population = append(population, row)
+	}
 	return population, nil
 }

@@ -16,16 +16,16 @@ func Test(t *testing.T) {
 		expectedErrMsg string
 		want           population.Population
 	}{
-		// {
-		// 	desc:           "It errors if there is no file",
-		// 	path:           "test_files/is_no_file.cells",
-		// 	expectedErrMsg: "couldn't open file",
-		// },
-		// {
-		// 	desc: "It errors if file empty",
-		// 	path: "test_files/empty.cells",
-		// 	want: nil,
-		// },
+		{
+			desc:           "It errors if there is no file",
+			path:           "test_files/is_no_file.cells",
+			expectedErrMsg: "couldn't open file",
+		},
+		{
+			desc: "It errors if file empty",
+			path: "test_files/empty.cells",
+			want: nil,
+		},
 		{
 			desc: "It reads in a population from a file",
 			path: "test_files/test_simple.cells",
