@@ -22,9 +22,10 @@ func Test(t *testing.T) {
 			expectedErrMsg: "couldn't open file",
 		},
 		{
-			desc: "It errors if file empty",
-			path: "test_files/empty.cells",
-			want: nil,
+			desc:           "It errors if file empty",
+			path:           "test_files/empty.cells",
+			expectedErrMsg: "the file appears to be empty",
+			want:           nil,
 		},
 		{
 			desc: "It reads in a population from a file",
@@ -33,6 +34,11 @@ func Test(t *testing.T) {
 				{false, true},
 				{true, false},
 			},
+		},
+		{
+			desc:           "It errors if the file is invalid",
+			path:           "test_files/invalid_characters.cells",
+			expectedErrMsg: "invalid .cells file",
 		},
 	}
 	for _, tc := range testCases {
