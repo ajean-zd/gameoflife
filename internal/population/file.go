@@ -1,25 +1,40 @@
 package population
 
 import (
-	"fmt"
+	"errors"
 	"io/ioutil"
 	"strings"
 )
 
 func FromFile(path string) (Population, error) {
-	// create the empty
 	var population Population
 
-	// do the work
 	bytes, err := ioutil.ReadFile(path)
 	if err != nil {
-		return nil, fmt.Errorf("couldn't open file: %v", err)
+		return nil, errors.New("couldn't open file")
 	}
 	contents := string(bytes)
-	rows := strings.Split(contents, "\n")
+	if contents == "" {
+		return nil, errors.New("the file appears to be empty")
+	}
+	contents = strings.TrimSpace(contents)
+	lines := strings.Split(contents, "\n")
 
-	fmt.Println(rows)
+	for _, line := range lines {
+		characters := strings.Split(line, "")
+		row := []bool{}
 
-	// return it
+		for _, character := range characters {
+			if character == "." {
+				row = append(row, false)
+			} else if character == "O" {
+				row = append(row, true)
+			} else {
+				return nil, errors.New("invalid .cells file")
+			}
+		}
+
+		population = append(population, row)
+	}
 	return population, nil
 }

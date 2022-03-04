@@ -1,0 +1,7 @@
+some ideas...
+
+* We currently print game of life to the screen, but we could make it look a lot nicer
+* User input: pause, play, go back one step, go forward one step...
+* revisit the .cells spec and make sure we are reading it properly (e.g. header, comments)
+* better performance for very large populations, 2d array probably gets very slow
+* configuration, e.g., playback speed (.cellsrc ??)

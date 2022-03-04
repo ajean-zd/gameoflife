@@ -63,9 +63,9 @@ func (p Population) String() string {
 
 		for _, cell := range row {
 			if cell {
-				sb.Write([]byte("[#]"))
+				sb.Write([]byte("#"))
 			} else {
-				sb.Write([]byte("[.]"))
+				sb.Write([]byte("."))
 			}
 		}
 
