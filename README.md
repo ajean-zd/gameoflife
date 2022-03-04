@@ -5,3 +5,11 @@ This is our implementation of the Game of Life. For information on requirements 
 ## Overview ##
 
 ## Instructions ##
+
+to run in command line
+```
+make
+
+./gameoflife filepath
+```
+
