@@ -5,3 +5,8 @@ some ideas...
 * revisit the .cells spec and make sure we are reading it properly (e.g. header, comments)
 * better performance for very large populations, 2d array probably gets very slow
 * configuration, e.g., playback speed (.cellsrc ??)
+* when all cells are dead or the game is inactive, end the game with a message
+* option to end the game after x iterations (useful for on the fly testing)
+* user input on the fly rather than a file
+* option to save a config to file because it's in an awesome state
+* make a new folder location for loaded files. we don't want to touch the testing files as they are  part of tests and using the file test location folder could end in files rewritten
