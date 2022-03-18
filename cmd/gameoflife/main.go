@@ -24,17 +24,6 @@ func main() {
 		os.Exit(1)
 	}
 
-	rules := rules.GameOfLife
-	for {
-		clear()
-		fmt.Println(population)
-		time.Sleep(250 * time.Millisecond)
-		population = population.Tick(rules)
-	}
-}
-
-func clear() {
-	cmd := exec.Command("clear")
-	cmd.Stdout = os.Stdout
-	cmd.Run()
+	game := game.New(population, rules.GameOfLife)
+	game.Run()
 }
