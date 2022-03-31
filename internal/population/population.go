@@ -34,6 +34,10 @@ func New(dimens int) (Population, error) {
 	return population, nil
 }
 
+func (p Population) Size() (int, int) {
+	return len(p[0]), len(p)
+}
+
 func (p Population) Equals(q Population) bool {
 	if len(p) == 0 || len(q) == 0 {
 		return false
